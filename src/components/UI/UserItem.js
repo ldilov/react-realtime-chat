@@ -9,7 +9,7 @@ const UserItem = props => {
             <div className={styles.sideDiv}>
                 <h2 className={styles.h2}>Prénom Nom</h2>
                 <h3 className={styles.h3}>
-                    <span className={{...styles.status, ...styles.orange}}></span>
+                    <span className={`${styles.status} ${styles.orange}`}></span>
                     <span>offline</span>
                 </h3>
             </div>
