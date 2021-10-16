@@ -1,0 +1,28 @@
+.aside {
+    width:30%;
+    height:100%;
+    background-color:#3b3e49;
+    display:inline-block;
+    font-size:15px;
+    vertical-align:top;
+}
+
+.green{
+    background-color:#58b666;
+}
+.orange{
+    background-color:#ff725d;
+}
+.blue{
+    background-color:#6fbced;
+    margin-right:0;
+    margin-left:7px;
+}
+
+.sideUl {
+    padding-left:0;
+    margin:0;
+    list-style-type:none;
+    overflow-y:hidden;
+    height:690px;
+}
