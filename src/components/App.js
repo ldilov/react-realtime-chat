@@ -8,7 +8,9 @@ import SideBar from "./UI/SideBar";
 const App = props => {
     return (
         <div className={styles.container}>
-            <SideBar />
+            <div className={styles.sideBar}>
+                <SideBar />
+            </div>
             <div className={styles.main}>
                 <ChatBox />
             </div>

@@ -6,14 +6,20 @@
     font-size:0;
     border-radius:5px;
     overflow:hidden;
+    display:flex;
+    flex-direction: row;
+}
+
+.sideBar {
+    flex: 2;
 }
 
 .main{
-    width:70%;
     height:100%;
-    display:inline-block;
+    display:flex;
+    flex-direction: column;
     font-size:15px;
-    vertical-align:top;
+    flex: 5
 }
 
 body{
