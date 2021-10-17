@@ -9,21 +9,17 @@ import {updateUsers} from "../../actions";
 
 const SideBar = props => {
     const {setUsers} = props;
-    const users = useSelector(store => store.users.filter(u => u));
+    const users = useSelector(store => store.users);
 
     const userItems = users.map(user =>
         <UserItem key={user.username} title={user.username}/>
     );
 
     useEffect(() => {
-        try{
-            setDbListener(refs.getUsersRef(), (data) => {
-                setUsers(data);
-            });
-        }catch(err) {
-            console.error(err)
-        }
-    }, []);
+        setDbListener(refs.getUsersRef(), (data) => {
+            setUsers(data);
+        });
+    }, [setUsers]);
 
     return (
         <div className={styles.aside}>
