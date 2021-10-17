@@ -16,10 +16,10 @@ const app = initializeApp(config);
 export const auth = app.auth;
 export const db = getDatabase(app);
 
-export const setDbListener = (database) => {
+export const setDbListener = (database, callback) => {
     onValue(database, (snapshot) => {
         const data = snapshot.val();
-        console.log(data[1]);
+        callback(data);
     });
 }
 

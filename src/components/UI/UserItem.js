@@ -7,7 +7,7 @@ const UserItem = props => {
         <li className={styles.sideLi}>
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_06.jpg" alt="" className={styles.img}/>
             <div className={styles.sideDiv}>
-                <h2 className={styles.h2}>Lorem Ipsummm</h2>
+                <h2 className={styles.h2}>{props.title}</h2>
                 <h3 className={styles.h3}>
                     <span className={`${styles.status} ${styles.orange}`}></span>
                     <span>offline</span>
