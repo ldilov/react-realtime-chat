@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
+import {connect, useSelector} from "react-redux";
 
 import styles from '../../styles/SideBar.Module.css';
 import UserItem from "./UserItem";
 import SearchBar from "./SearchBar";
-import {connect, useSelector} from "react-redux";
 import {refs, setDbListener} from "../../services/firebase";
 import {updateUsers} from "../../actions";
 
@@ -12,7 +12,7 @@ const SideBar = props => {
     const users = useSelector(store => store.users);
 
     const userItems = users.map(user =>
-        <UserItem key={user.username} title={user.username}/>
+        <UserItem key={user.username} title={user.username} isOnline={user.isOnline}/>
     );
 
     useEffect(() => {
