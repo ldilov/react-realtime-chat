@@ -4,7 +4,7 @@
     list-style-type:none;
     overflow-y:scroll;
     border-bottom:2px solid #fff;
-    flex-grow: 3;
+    flex: 6;
 }
 
 textarea {
@@ -32,7 +32,7 @@ textarea:focus {
 .input {
     gap: 12px;
     flex-direction: row;
-    flex-grow: 1;
+    flex: 1;
     background-color: inherit;
     min-height: 130px;
     padding: 20px;
@@ -41,8 +41,9 @@ textarea:focus {
 }
 
 .form {
-    flex: 8;
-    max-height: 110px;
+    flex: 5;
+    max-height: 80%;
+    min-width: 80%;
     background: rgba(0,0,0,.4);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);

@@ -1,5 +1,6 @@
 import {initializeApp} from 'firebase/app';
-import {getDatabase, onValue, ref} from 'firebase/database';
+import firebase from 'firebase/compat/app';
+import {getDatabase, onValue, ref, set, push} from 'firebase/database';
 
 const config = {
     apiKey: "AIzaSyDo2SREjeWJrs3M5AkZUyS8Wvl7jEUtR_A",
@@ -23,6 +24,21 @@ export const setDbListener = (database, callback) => {
     });
 }
 
+export const getUserById = (id, callback) => {
+    const userRef = ref(db, `users/${id}`);
+    onValue(userRef, (snapshot) => {
+        const data = snapshot.val();
+        callback(data);
+    });
+}
+export const writeMessageToDb = (userId, content) => {
+    set(push(ref(db, 'messages/')), {
+            user_id: userId,
+            content: content
+    });
+}
+
 export const refs = {
-    getUsersRef: () => ref(db, 'users/')
+    getUsersRef: () => ref(db, 'users/'),
+    getMessagesRef: () => ref(db, 'messages/')
 }

@@ -1,0 +1,10 @@
+.error-arrow {
+    position: absolute;
+    font-size: 7px;
+    width: 3em;
+    height: 3em;
+}
+
+.error-msg {
+    font-size: 1.3rem;
+}
