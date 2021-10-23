@@ -63,7 +63,7 @@ const InputError = props => {
                 }
             ]}
             anchorEl={inputRef}
-            open={errors.length}>
+            open={errors.length > 0}>
             <Alert severity="error" variant="filled">
                 <AlertTitle>Error</AlertTitle>
                 <ul>

@@ -9,10 +9,32 @@ const fetchMessages = (messages) => {
     };
 };
 
+const selectMessages = (messages, index) => {
+    const filteredMessages = messages.filter(
+        msg => msg && msg.user_id === index
+    );
+
+    return (dispatch) => {
+        dispatch({
+            type: 'SELECT_MESSAGES',
+            payload: filteredMessages
+        });
+    };
+};
+
+const deselectMessages = () => {
+    return (dispatch) => {
+        dispatch({
+            type: 'DESELECT_MESSAGES',
+            payload: null
+        });
+    };
+};
+
 const sendMessage = (message) => {
     return async (dispatch) => {
         try {
-            await writeMessageToDb(1, message);
+            await writeMessageToDb('dwqeqwr', message);
             dispatch({
                 type: 'SEND_MESSAGE',
                 payload: message
@@ -25,7 +47,9 @@ const sendMessage = (message) => {
 
 const moduleData = {
     sendMessage,
-    fetchMessages
+    fetchMessages,
+    selectMessages,
+    deselectMessages
 };
 
 export default moduleData;

@@ -23,17 +23,19 @@ const SearchBar = props => {
 
     const memoizedFetchUsers = useMemo(() => {
         return debounce(fetchUsers, 500)
-    }, []);
+    }, [fetchUsers]);
 
-    useEffect(async () => {
-        await memoizedFetchUsers();
-        setInputDebounce(inputValue);
-    }, [inputValue])
+    useEffect(() => {
+        (async function() {
+            await memoizedFetchUsers();
+            setInputDebounce(inputValue);
+        })();
+    }, [inputValue, memoizedFetchUsers])
 
     useEffect(() => {
         const userList = dbUsers.filter(u => u && u?.username.startsWith(inputValue));
         setUsers(userList);
-    }, [inputDebounce])
+    }, [inputDebounce, dbUsers, setUsers])
 
     return (
         <header>

@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import {getDatabase, onValue, ref, set, push, query, orderByChild, get} from 'firebase/database';
+import {getDatabase, onValue, ref, set, push, query, get} from 'firebase/database';
 
 const config = {
     apiKey: "AIzaSyDo2SREjeWJrs3M5AkZUyS8Wvl7jEUtR_A",

@@ -4,6 +4,8 @@ import React from "react";
 import styles from "../../styles/UserItem.Module.css";
 
 const UserItem = props => {
+    const {isSelected} = props;
+
     const status = {};
 
     if(props.isOnline) {
@@ -15,7 +17,7 @@ const UserItem = props => {
     }
 
     return (
-        <li className={styles.sideLi}>
+        <li key={props.id} className={`${styles.sideLi} ${isSelected ? styles['is-active'] : null}`} onClick={props.onClick}>
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_06.jpg" alt="" className={styles.img}/>
             <div className={styles.sideDiv}>
                 <h2 className={styles.h2}>{props.title}</h2>

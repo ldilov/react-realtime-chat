@@ -4,19 +4,19 @@ import {useSelector} from "react-redux";
 import useMessageStyles from "../../hooks/useMessageStyles";
 
 const Message = props => {
-    const {userId, content, msgId} = props;
+    const {userId, content} = props;
     const {styles} = useMessageStyles(userId);
 
     const users = useSelector(store => store.users.displayUsers);
 
-    const currentMessageUser = users[userId];
+    const currentMessageUser = users.find(u => u.id === userId);
 
     if(!currentMessageUser?.username || !content){
         return null;
     }
 
     return (
-        <li key={msgId} className={styles.li}>
+        <li className={styles.li}>
             <div className={styles.entity}>
                 <span className={styles.status}></span>
                 <h2 className={styles.h2}>{currentMessageUser.username}</h2>

@@ -1,5 +1,5 @@
 const useMessageStyles = (uid) => {
-    const currentUserId = 1;
+    const currentUserId = 'dwqeqwr';
 
     let styles = null;
 

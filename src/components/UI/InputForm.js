@@ -41,6 +41,7 @@ const handleSubmit = async (inputSetters, value) => {
         inputSetters.setErrors(errors)
     } else {
         await inputSetters.sendMessage(parsedValue);
+        inputSetters.setErrors([]);
     }
 
     await inputSetters.setInputValue('');

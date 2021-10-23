@@ -9,13 +9,32 @@ const updateUsers = (users) => {
     };
 };
 
+const selectUsers = (users, uid) => {
+    const selectedUsers = users.filter(u => u && u.id === uid)
+
+    return (dispatch) => {
+        dispatch({
+            type: 'SELECT_USERS',
+            payload: selectedUsers
+        });
+    };
+};
+
+const deselectUsers = (users, uid) => {
+    const deselectedUsers = users.filter(u => u && u.id === uid)
+
+    return (dispatch) => {
+        dispatch({
+            type: 'DESELECT_USERS',
+            payload: deselectedUsers
+        });
+    };
+};
+
 const fetchUsers = () => {
     return async (dispatch) => {
-        console.log("fetching")
         const usersSnapshot = await getUsersFromDb();
-        const users = usersSnapshot
-            .val()
-            .filter(u => u);
+        const users = usersSnapshot.val();
 
         dispatch({
             type: 'FETCH_USERS',
@@ -26,7 +45,9 @@ const fetchUsers = () => {
 
 const moduleData = {
     updateUsers,
-    fetchUsers
+    fetchUsers,
+    selectUsers,
+    deselectUsers
 };
 
 export default moduleData;
