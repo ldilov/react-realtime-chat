@@ -1,4 +1,4 @@
-export default (state = [], action) => {
+const inpurtFormReducer = (state = [], action) => {
     switch(action.type) {
         case 'SET_INPUT':
             return action.payload;
@@ -8,3 +8,5 @@ export default (state = [], action) => {
             return '';
     }
 };
+
+export default inpurtFormReducer;

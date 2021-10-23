@@ -1,7 +1,9 @@
 import React from "react";
-
-import styles from '../../styles/MessageSent.Module.css';
 import {useSelector} from "react-redux";
+
+// Stylesheets
+import styles from '../../styles/MessageSent.Module.css';
+
 
 const MessageSent = props => {
     const {userId, content, msgId} = props;

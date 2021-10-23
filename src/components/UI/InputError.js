@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect} from "react";
 
 // CSS
 import styles from '../../styles/InputError.Module.css';
@@ -6,7 +6,8 @@ import styles from '../../styles/InputError.Module.css';
 // MaterialUI Components
 import AlertTitle from "@mui/material/AlertTitle";
 import Alert from "@mui/material/Alert";
-import {Box, Popper} from "@mui/material";
+import Popper from "@mui/material/Popper";
+import Box from "@mui/material/Box";
 
 // Constants
 const ERR_TIMEOUT_SECONDS = 7;
@@ -14,7 +15,6 @@ const ERR_TIMEOUT_SECONDS = 7;
 // Component
 const InputError = props => {
     const {errors, updateErrors, inputRef} = props;
-    const arrowRef = useRef();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -24,7 +24,7 @@ const InputError = props => {
         return () => {
             clearTimeout(timer);
         }
-    }, [errors])
+    }, [errors, updateErrors])
 
     if (!errors || errors.length < 1) {
         return null;
@@ -49,10 +49,6 @@ const InputError = props => {
                         rootBoundary: 'document',
                         padding: 8,
                     },
-                },
-                {
-                    name:' flip',
-                    enabled: true,
                 },
                 {
                     name: 'preventOverflow',

@@ -1,9 +1,18 @@
 import React, {useRef, useState} from "react";
+import {connect, useSelector} from "react-redux";
+
+// Stylesheets
 import styles from "../../styles/ChatBox.Module.css";
+
+// Material Components
 import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/Send";
-import {connect, useSelector} from "react-redux";
-import {sendMessage, setInputValue} from "../../actions";
+
+// Actions
+import messagesActions from "../../actions/messagesActions";
+import inputActions from "../../actions/inputActions";
+
+// Custom components
 import InputError from "./InputError";
 
 const MIN_MESSAGE_LENGTH = 3;
@@ -99,7 +108,7 @@ const customStyles = {
 export default connect(
     null,
     {
-        sendMessage: sendMessage,
-        setInputValue: setInputValue
+        sendMessage: messagesActions.sendMessage,
+        setInputValue: inputActions.setInputValue
     }
 )(InputForm);

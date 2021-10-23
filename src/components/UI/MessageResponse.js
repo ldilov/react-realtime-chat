@@ -1,5 +1,6 @@
 import React from "react";
 
+// Stylesheets
 import styles from '../../styles/MessageResponse.Module.css';
 
 const MessageResponse = props => {

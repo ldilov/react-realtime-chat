@@ -11,7 +11,7 @@ const SearchBar = props => {
         <header>
             <Input
                 className={styles.input}
-                disableUnderline="true"
+                disableUnderline={true}
                 placeholder="Search..."
                 id="input-search"
                 endAdornment={

@@ -1,13 +1,19 @@
 import React, {useEffect} from "react";
+import {connect, useSelector} from "react-redux";
 
+// Stylesheets
 import styles from '../../styles/ChatBox.Module.css'
+
+// Custom components
 import MessageResponse from "./MessageResponse";
 import MessageSent from "./MessageSent";
-
-import {connect, useSelector} from "react-redux";
-import {refs, setDbListener} from "../../services/firebase";
-import {fetchMessages} from "../../actions";
 import InputForm from "./InputForm";
+
+// Services
+import {refs, setDbListener} from "../../services/firebase";
+
+// Actions
+import msgActions from "../../actions/messagesActions";
 
 const ChatBox = props => {
     const {getMessages} = props;
@@ -39,6 +45,6 @@ const ChatBox = props => {
 export default connect(
     null,
     {
-        getMessages: fetchMessages,
+        getMessages: msgActions.fetchMessages,
     }
 )(ChatBox);

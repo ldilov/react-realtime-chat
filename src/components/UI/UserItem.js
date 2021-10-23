@@ -1,5 +1,6 @@
 import React from "react";
 
+// Stylesheets
 import styles from "../../styles/UserItem.Module.css";
 
 const UserItem = props => {

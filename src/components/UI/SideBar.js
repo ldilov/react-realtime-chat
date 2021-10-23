@@ -1,14 +1,22 @@
 import React, {useEffect} from "react";
 import {connect, useSelector} from "react-redux";
 
+// Stylesheets
 import styles from '../../styles/SideBar.Module.css';
+
+// Custom components
 import UserItem from "./UserItem";
 import SearchBar from "./SearchBar";
+
+// Services
 import {refs, setDbListener} from "../../services/firebase";
-import {updateUsers} from "../../actions";
+
+// Actions
+import userActions from "../../actions/usersActions";
 
 const SideBar = props => {
     const {setUsers} = props;
+    console.log(setUsers)
     const users = useSelector(store => store.users);
 
     const userItems = users.map(user =>
@@ -32,5 +40,5 @@ const SideBar = props => {
 }
 
 export default connect(null, {
-    setUsers: updateUsers
+    setUsers: userActions.updateUsers
 })(SideBar);

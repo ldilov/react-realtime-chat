@@ -1,4 +1,4 @@
-export default (state = [], action) => {
+const messagesReducer = (state = [], action) => {
     switch(action.type) {
         case 'FETCH_MESSAGES':
             return Object.entries(action.payload).map(
@@ -16,3 +16,5 @@ export default (state = [], action) => {
             return state;
     }
 };
+
+export default messagesReducer;
