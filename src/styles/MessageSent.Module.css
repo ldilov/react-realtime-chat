@@ -5,6 +5,10 @@
     align-items: flex-start;
 }
 
+a {
+    color: white;
+}
+
 .msgContainer {
     display: flex;
     flex-direction: column;

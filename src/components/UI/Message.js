@@ -1,7 +1,14 @@
 import React from "react";
+import Linkify from 'react-linkify';
 import {useSelector} from "react-redux";
 
 import useMessageStyles from "../../hooks/useMessageStyles";
+
+const parseMessage = (content) => {
+    return (
+        <Linkify>{content}</Linkify>
+    )
+};
 
 const Message = props => {
     const {userId, content} = props;
@@ -25,7 +32,7 @@ const Message = props => {
             <div className={styles.msgContainer}>
                 <div className={styles.triangle}></div>
                 <div className={styles.message}>
-                    {content}
+                    {parseMessage(content)}
                 </div>
             </div>
         </li>

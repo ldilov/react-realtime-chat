@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import {connect, useSelector} from "react-redux";
 
 // Stylesheets
@@ -16,7 +16,7 @@ import inputActions from "../../actions/inputActions";
 import InputError from "./InputError";
 import useFocus from "../../hooks/useFocus";
 
-const MIN_MESSAGE_LENGTH = 5;
+const MIN_MESSAGE_LENGTH = 1;
 
 function timeout(delay) {
     return new Promise( res => setTimeout(res, delay) );
@@ -36,8 +36,14 @@ const validateMessage = (value) => {
     return errors;
 }
 
+const parseMessage = (value) => {
+    // TODO: implement
+
+    return value;
+}
+
 const handleSubmit = async (inputSetters, value) => {
-    const parsedValue = value.trim();
+    const parsedValue = parseMessage(value.trim());
 
     const errors = validateMessage(parsedValue);
     await inputSetters.setIsLoading(true);
@@ -47,7 +53,7 @@ const handleSubmit = async (inputSetters, value) => {
     if(errors.length > 0){
         inputSetters.setErrors(errors)
     } else {
-        await timeout(500);
+        await timeout(300);
         await inputSetters.sendMessage(parsedValue);
         inputSetters.setErrors([]);
     }
