@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useMemo} from "react";
 import {connect, useSelector} from "react-redux";
+import debounce from 'lodash.debounce';
 
 // Material components
 import {Input, InputAdornment} from "@mui/material";
@@ -20,8 +21,12 @@ const SearchBar = props => {
 
     const dbUsers = useSelector(store => store.users.dbUsers);
 
+    const memoizedFetchUsers = useMemo(() => {
+        return debounce(fetchUsers, 500)
+    }, []);
+
     useEffect(async () => {
-        await fetchUsers();
+        await memoizedFetchUsers();
         setInputDebounce(inputValue);
     }, [inputValue])
 

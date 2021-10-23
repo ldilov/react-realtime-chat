@@ -11,6 +11,7 @@ const updateUsers = (users) => {
 
 const fetchUsers = () => {
     return async (dispatch) => {
+        console.log("fetching")
         const usersSnapshot = await getUsersFromDb();
         const users = usersSnapshot
             .val()
