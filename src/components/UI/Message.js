@@ -1,17 +1,17 @@
 import React from "react";
 import {useSelector} from "react-redux";
 
-// Stylesheets
-import styles from '../../styles/MessageSent.Module.css';
+import useMessageStyles from "../../hooks/useMessageStyles";
 
-
-const MessageSent = props => {
+const Message = props => {
     const {userId, content, msgId} = props;
+    const {styles} = useMessageStyles(userId);
+
     const users = useSelector(store => store.users.displayUsers);
 
     const currentMessageUser = users[userId];
 
-    if(!currentMessageUser?.username){
+    if(!currentMessageUser?.username || !content){
         return null;
     }
 
@@ -32,4 +32,4 @@ const MessageSent = props => {
     );
 }
 
-export default MessageSent;
+export default Message;
