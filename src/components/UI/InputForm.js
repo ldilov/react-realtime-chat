@@ -14,8 +14,13 @@ import inputActions from "../../actions/inputActions";
 
 // Custom components
 import InputError from "./InputError";
+import useFocus from "../../hooks/useFocus";
 
 const MIN_MESSAGE_LENGTH = 5;
+
+function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+}
 
 const validateMessage = (value) => {
     const errors = [];
@@ -36,16 +41,20 @@ const handleSubmit = async (inputSetters, value) => {
 
     const errors = validateMessage(parsedValue);
     await inputSetters.setIsLoading(true);
+    await inputSetters.setIsInputEnabled(false);
+    await inputSetters.setInputValue('');
 
     if(errors.length > 0){
         inputSetters.setErrors(errors)
     } else {
+        await timeout(500);
         await inputSetters.sendMessage(parsedValue);
         inputSetters.setErrors([]);
     }
 
-    await inputSetters.setInputValue('');
+    await inputSetters.setIsInputEnabled(true);
     await inputSetters.setIsLoading(false);
+    await inputSetters.setInputFocus();
 }
 
 const handleClick = async (inputSetters, value) => {
@@ -63,16 +72,19 @@ const InputForm = props => {
     const {sendMessage, setInputValue} = props;
     const inputValue = useSelector(store => store.inputForm);
 
-    const inputFieldRef = useRef();
+    const [inputFieldRef, setInputFocus] = useFocus()
 
     const [isLoading, setIsLoading] = useState(false);
+    const [isInputEnabled, setIsInputEnabled] = useState(true);
     const [errors, setErrors] = useState([]);
 
     const inputSetters = {
         setErrors,
         setIsLoading,
         sendMessage,
-        setInputValue
+        setInputValue,
+        setIsInputEnabled,
+        setInputFocus
     };
 
     return (
@@ -80,6 +92,7 @@ const InputForm = props => {
             <div className={styles.form}>
                     <textarea
                         ref={inputFieldRef}
+                        disabled={!isInputEnabled}
                         placeholder='Type your message here'
                         value={inputValue}
                         onKeyPress={(e) => handleKeyPress(inputSetters, inputValue, e)}
@@ -117,6 +130,10 @@ const customStyles = {
             borderRadius: "5px",
             boxShadow: "0 0 5px #03e9f4, 0 0 15px #03e9f4, 0 0 2px #03e9f4, 0 0 1px #03e9f4",
         },
+        "&:disabled": {
+            background: "#03e9f4",
+            color: "#141e30",
+        }
     }
 }
 
