@@ -18,14 +18,28 @@ import {refs, setDbListener} from "../../services/firebase";
 // Actions
 import msgActions from "../../actions/messagesActions";
 
+const playNotification = async () => {
+    const notificationSound = new Audio('/sounds/msg-sound.mp3');
+    notificationSound.crossOrigin ='anonymous';
+    return notificationSound.play();
+}
+
 const ChatBox = props => {
     const {getMessages} = props;
 
     const messagesEndRef = useRef();
     const messageContainer = useRef();
+    const prevMessagesCountRef = useRef();
 
     const messages = useSelector(store => store.messages.messages);
     const selectedMessages = useSelector(store => store.messages.selectedMessages);
+
+    useEffect(() => {
+        if(prevMessagesCountRef.current < messages.length){
+            playNotification();
+        }
+        prevMessagesCountRef.current = messages.length;
+    }, [messages])
 
     useEffect(() => {
         setDbListener(refs.getMessagesRef(), (data) => {
