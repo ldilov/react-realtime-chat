@@ -7,7 +7,7 @@ import styles from '../../styles/MessageSent.Module.css';
 
 const MessageSent = props => {
     const {userId, content, msgId} = props;
-    const users = useSelector(store => store.users);
+    const users = useSelector(store => store.users.displayUsers);
 
     const currentMessageUser = users[userId];
 
