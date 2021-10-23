@@ -13,10 +13,15 @@ import {refs, setDbListener} from "../../services/firebase";
 
 // Actions
 import msgActions from "../../actions/messagesActions";
+import {Slide} from "@mui/material";
+import Box from "@mui/material/Box";
 
 const ChatBox = props => {
     const {getMessages} = props;
+
     const messagesEndRef = useRef();
+    const messageContainer = useRef();
+
     const messages = useSelector(store => store.messages);
 
     useEffect(() => {
@@ -26,19 +31,29 @@ const ChatBox = props => {
     }, [getMessages, messages.length]);
 
     useLayoutEffect(() => {
-        messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
     });
 
     const userMessages = messages
         .filter(msg => msg !== undefined)
-        .map(msg => <Message msgId={msg.id} userId={msg.user_id} content={msg.content}/>);
+        .map(msg => {
+            return (
+                <Slide direction="up" in={true} container={messageContainer.current}>
+                    <Box>
+                        <Message msgId={msg.id} userId={msg.user_id} content={msg.content}/>
+                    </Box>
+                </Slide>
+            );
+        });
 
     return (
         <div className={styles.chatContainer}>
             <div className={styles.chat}>
-                <ul>
-                    {userMessages}
-                </ul>
+                <Box ref={messageContainer}>
+                    <ul>
+                        {userMessages}
+                    </ul>
+                </Box>
                 <div ref={messagesEndRef} />
             </div>
             <InputForm />

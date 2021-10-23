@@ -15,7 +15,7 @@ import inputActions from "../../actions/inputActions";
 // Custom components
 import InputError from "./InputError";
 
-const MIN_MESSAGE_LENGTH = 3;
+const MIN_MESSAGE_LENGTH = 5;
 
 const validateMessage = (value) => {
     const errors = [];
@@ -31,18 +31,31 @@ const validateMessage = (value) => {
     return errors;
 }
 
-const handleClick = async (inputSetters, value) => {
-    const errors = validateMessage(value);
+const handleSubmit = async (inputSetters, value) => {
+    const parsedValue = value.trim();
+
+    const errors = validateMessage(parsedValue);
     await inputSetters.setIsLoading(true);
 
     if(errors.length > 0){
         inputSetters.setErrors(errors)
     } else {
-        await inputSetters.setInputValue('');
-        await inputSetters.sendMessage(value);
+        await inputSetters.sendMessage(parsedValue);
     }
 
+    await inputSetters.setInputValue('');
     await inputSetters.setIsLoading(false);
+}
+
+const handleClick = async (inputSetters, value) => {
+    await handleSubmit(inputSetters, value);
+}
+
+const handleKeyPress = async (inputSetters, value, event) => {
+    if(event.code === 'Enter' && !event.shiftKey) {
+        event.preventDefault();
+        await handleSubmit(inputSetters, value);
+    }
 }
 
 const InputForm = props => {
@@ -68,6 +81,7 @@ const InputForm = props => {
                         ref={inputFieldRef}
                         placeholder='Type your message here'
                         value={inputValue}
+                        onKeyPress={(e) => handleKeyPress(inputSetters, inputValue, e)}
                         onChange={(e) => setInputValue(e.target.value)}
                         autoFocus>
                     </textarea>

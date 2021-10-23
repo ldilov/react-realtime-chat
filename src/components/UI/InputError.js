@@ -10,7 +10,7 @@ import Popper from "@mui/material/Popper";
 import Box from "@mui/material/Box";
 
 // Constants
-const ERR_TIMEOUT_SECONDS = 7;
+const ERR_TIMEOUT_SECONDS = 4;
 
 // Component
 const InputError = props => {
