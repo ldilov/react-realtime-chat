@@ -17,7 +17,7 @@ import userActions from "../../actions/usersActions";
 const SideBar = props => {
     const {setUsers} = props;
 
-    const users = useSelector(store => store.users);
+    const users = useSelector(store => store.users.displayUsers);
 
     const userItems = users.map(user =>
         <UserItem key={user.username} title={user.username} isOnline={user.isOnline}/>

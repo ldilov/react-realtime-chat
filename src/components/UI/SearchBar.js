@@ -14,9 +14,11 @@ import usersActions from "../../actions/usersActions";
 
 const SearchBar = props => {
     const {setUsers, fetchUsers} = props;
+
     const [inputValue, setInputValue] = useState('');
     const [inputDebounce, setInputDebounce] = useState('');
-    const users = useSelector(store => store.users);
+
+    const dbUsers = useSelector(store => store.users.dbUsers);
 
     useEffect(async () => {
         await fetchUsers();
@@ -24,7 +26,7 @@ const SearchBar = props => {
     }, [inputValue])
 
     useEffect(() => {
-        const userList = users.filter(u => u && u?.username.startsWith(inputValue));
+        const userList = dbUsers.filter(u => u && u?.username.startsWith(inputValue));
         setUsers(userList);
     }, [inputDebounce])
 
