@@ -1,6 +1,5 @@
 import {initializeApp} from 'firebase/app';
-import firebase from 'firebase/compat/app';
-import {getDatabase, onValue, ref, set, push} from 'firebase/database';
+import {getDatabase, onValue, ref, set, push, query, orderByChild, get} from 'firebase/database';
 
 const config = {
     apiKey: "AIzaSyDo2SREjeWJrs3M5AkZUyS8Wvl7jEUtR_A",
@@ -31,6 +30,13 @@ export const getUserById = (id, callback) => {
         callback(data);
     });
 }
+
+export const getUsersFromDb = () => {
+    const userRef = ref(db, `users/`);
+    const queryUsers = query(userRef);
+    return get(queryUsers);
+}
+
 export const writeMessageToDb = (userId, content) => {
     set(push(ref(db, 'messages/')), {
             user_id: userId,

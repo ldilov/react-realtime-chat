@@ -2,8 +2,10 @@ import inputActions from "./inputActions";
 import messagesActions from "./messagesActions";
 import usersActions from "./usersActions";
 
-export default {
+const actions =  {
     inputActions,
     messagesActions,
     usersActions
-}
+};
+
+export default actions;

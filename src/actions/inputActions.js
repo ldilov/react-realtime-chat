@@ -16,7 +16,9 @@ const getInputValue = () => {
     }
 }
 
-export default {
+const moduleData = {
     setInputValue,
     getInputValue
 };
+
+export default moduleData;

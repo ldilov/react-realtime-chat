@@ -23,7 +23,9 @@ const sendMessage = (message) => {
     };
 };
 
-export default {
+const moduleData = {
     sendMessage,
     fetchMessages
-}
+};
+
+export default moduleData;

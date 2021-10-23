@@ -16,7 +16,7 @@ import userActions from "../../actions/usersActions";
 
 const SideBar = props => {
     const {setUsers} = props;
-    console.log(setUsers)
+
     const users = useSelector(store => store.users);
 
     const userItems = users.map(user =>
