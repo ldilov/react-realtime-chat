@@ -17,7 +17,7 @@ import Cloud from '@mui/icons-material/Cloud';
 import styles from '../../styles/Context.Module.css';
 
 
-const ContextMenu = props => {
+const ContextMenuMemo = props => {
     const {xPos, yPos, showMenu} = props;
     const [copyData, setCopyData] = useState(null);
 
@@ -77,6 +77,7 @@ const ContextMenu = props => {
             </Paper>
         </div>
     );
-}
+};
 
+const ContextMenu = React.memo(ContextMenuMemo);
 export default ContextMenu;

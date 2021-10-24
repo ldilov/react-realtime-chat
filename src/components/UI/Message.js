@@ -10,7 +10,7 @@ const parseMessage = (content) => {
     )
 };
 
-const Message = props => {
+const MessageMemo = props => {
     const {userId, content} = props;
     const {styles} = useMessageStyles(userId);
 
@@ -37,6 +37,7 @@ const Message = props => {
             </div>
         </li>
     );
-}
+};
 
+const Message = React.memo(MessageMemo);
 export default Message;

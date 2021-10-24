@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 const ERR_TIMEOUT_SECONDS = 4;
 
 // Component
-const InputError = props => {
+const InputErrorMemo = props => {
     const {errors, updateErrors, inputRef} = props;
 
     useEffect(() => {
@@ -75,7 +75,7 @@ const InputError = props => {
             />
         </Popper>
     );
-}
+};
 
 const customStyles = {
     arrow: {
@@ -95,4 +95,5 @@ const customStyles = {
     }
 }
 
+const InputError = React.memo(InputErrorMemo);
 export default InputError;
