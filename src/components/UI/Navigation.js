@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-const NavigationMemo = props => {
+const Navigation = props => {
     const {isOpen, onClick} = props;
 
     const list = (anchor) => (
@@ -82,5 +82,4 @@ const customStyles = {
     }
 }
 
-const Navigation = React.memo(NavigationMemo);
-export default Navigation;
+export default React.memo(Navigation);

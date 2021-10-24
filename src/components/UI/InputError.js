@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 const ERR_TIMEOUT_SECONDS = 4;
 
 // Component
-const InputErrorMemo = props => {
+const InputError = props => {
     const {errors, updateErrors, inputRef} = props;
 
     useEffect(() => {
@@ -95,5 +95,4 @@ const customStyles = {
     }
 }
 
-const InputError = React.memo(InputErrorMemo);
-export default InputError;
+export default React.memo(InputError);
