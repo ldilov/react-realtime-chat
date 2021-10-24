@@ -29,6 +29,7 @@ const SideBar = props => {
             id={user.id}
             key={user.username}
             title={user.username}
+            name={`${user.firstName} ${user.lastName}`}
             isOnline={user.isOnline}
             isSelected={selectedUserIds.includes(user.id)}
             onClick={() => {

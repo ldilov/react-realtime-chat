@@ -1,11 +1,39 @@
 import React from "react";
 
+// Material UI Components
+import Avatar from "@mui/material/Avatar";
+
 // Stylesheets
 import styles from "../../styles/UserItem.Module.css";
 
-const UserItem = props => {
-    const {isSelected} = props;
+const stringToColor = (string) => {
+    let hash = 0;
 
+    for (let i = 0; i < string.length; i += 1) {
+        hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    let color = '#';
+
+    for (let i = 0; i < 3; i += 1) {
+        const value = (hash >> (i * 8)) & 0xff;
+        color += `00${value.toString(16)}`.substr(-2);
+    }
+
+    return color;
+}
+
+const stringAvatar = (name) => {
+    return {
+        sx: {
+            bgcolor: stringToColor(name),
+        },
+        children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    };
+}
+
+const UserItem = props => {
+    const {isSelected, name} = props;
     const status = {};
 
     if(props.isOnline) {
@@ -18,7 +46,7 @@ const UserItem = props => {
 
     return (
         <li key={props.id} className={`${styles.sideLi} ${isSelected ? styles['is-active'] : null}`} onClick={props.onClick}>
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/chat_avatar_06.jpg" alt="" className={styles.img}/>
+            <Avatar {...stringAvatar(name)} className={styles.img} />
             <div className={styles.sideDiv}>
                 <h2 className={styles.h2}>{props.title}</h2>
                 <h3 className={styles.h3}>
