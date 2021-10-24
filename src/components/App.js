@@ -1,12 +1,18 @@
 import React, {useEffect, useState} from "react";
+
+// Components
 import ChatBox from "./UI/ChatBox";
 import SideBar from "./UI/SideBar";
-import styles from '../styles/App.Module.css';
 import ContextMenu from "./UI/ContextMenu";
 import Navigation from "./UI/Navigation";
+
+// Material UI Components
 import Fab from '@mui/material/Fab';
 import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+
+// Stylesheets
+import styles from '../styles/App.Module.css';
 
 const App = props => {
     const [context, setContext] = useState({
