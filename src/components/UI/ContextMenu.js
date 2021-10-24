@@ -25,11 +25,11 @@ const ContextMenu = props => {
         return null;
     }
 
-    const clickCopyHandler = (e) => {
+    const clickCopyHandler = () => {
         setCopyData(window.getSelection().toString());
     }
 
-    const clickPasteHandler = (e) => {
+    const clickPasteHandler = () => {
         const pasteText = document.querySelector("textarea");
         pasteText.focus();
         pasteText.value = copyData;

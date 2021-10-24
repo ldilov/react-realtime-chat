@@ -11,9 +11,6 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-// Stylesheets
-import styles from '../../styles/Navigation.Module.css';
-
 const Navigation = props => {
     const {isOpen, onClick} = props;
 

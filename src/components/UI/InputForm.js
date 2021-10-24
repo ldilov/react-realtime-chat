@@ -110,7 +110,7 @@ const InputForm = props => {
             <div className={styles.submit}>
                 <LoadingButton
                     sx={{...customStyles.LoadingButton}}
-                    onClick={(e) => handleClick(inputSetters, inputValue)}
+                    onClick={() => handleClick(inputSetters, inputValue)}
                     endIcon={<SendIcon/>}
                     loading={isLoading}
                     loadingPosition="end"

@@ -14,7 +14,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 // Stylesheets
 import styles from '../styles/App.Module.css';
 
-const App = props => {
+const App = () => {
     const [context, setContext] = useState({
         xPos: `${0}px`,
         yPos: `${0}px`,
