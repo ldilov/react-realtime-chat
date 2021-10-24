@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {lazy, useEffect, useState, Suspense} from "react";
 
 // Components
-import ChatBox from "./UI/ChatBox";
 import SideBar from "./UI/SideBar";
 import ContextMenu from "./UI/ContextMenu";
 import Navigation from "./UI/Navigation";
@@ -13,6 +12,10 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 // Stylesheets
 import styles from '../styles/App.Module.css';
+import {Backdrop, CircularProgress} from "@mui/material";
+
+// Lazy loads
+const ChatBoxComponent = lazy(() => import('./UI/ChatBox'));
 
 const App = () => {
     const [context, setContext] = useState({
@@ -71,7 +74,18 @@ const App = () => {
                     BETA
                 </div>
                 <div className={styles.main}>
-                    <ChatBox />
+                    <Suspense
+                        fallback={
+                            <Backdrop
+                                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                open={true}
+                                onClick={null}
+                            >
+                                <CircularProgress color="inherit" />
+                            </Backdrop>
+                        }>
+                        <ChatBoxComponent />
+                    </Suspense>
                 </div>
             </div>
             <Fab color="primary" aria-label="add" sx={customStyles.navIcon} onClick={handleClickDrawer}>
