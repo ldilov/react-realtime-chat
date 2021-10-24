@@ -1,0 +1,88 @@
+import React from "react";
+
+// Material UI Components
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+// Stylesheets
+import styles from '../../styles/Navigation.Module.css';
+
+const Navigation = props => {
+    const {isOpen, onClick} = props;
+
+    const list = (anchor) => (
+        <Box
+            sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+            role="presentation"
+            onClick={onClick}
+            onKeyDown={() => {}}
+        >
+            <List>
+                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    <ListItem button key={text} sx={customStyles.listItem}>
+                        <ListItemIcon sx={customStyles.listItemIcon} className="itemIcon">
+                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+            <Divider />
+            <List>
+                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                    <ListItem button key={text}>
+                        <ListItemIcon>
+                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    );
+
+    return (
+        <Drawer
+            PaperProps={{
+                sx:customStyles.drawer
+            }}
+            anchor='left'
+            onClick={onClick}
+            open={isOpen}
+            onClose={() => {}}
+        >
+            {list('left')}
+        </Drawer>
+    );
+}
+
+const customStyles = {
+    listItemIcon: {
+        color:'white',
+        "&:hover":{
+            color: 'black'
+        }
+    },
+    listItem: {
+        "&:hover":{
+            backgroundColor: 'white',
+            color: 'black',
+            "& > .itemIcon":{
+                color: 'black !important',
+            },
+        },
+    },
+    drawer: {
+        backgroundColor: "#121212",
+        color: "white",
+    }
+}
+
+export default Navigation;

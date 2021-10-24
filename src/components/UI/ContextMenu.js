@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React, {useState} from "react";
 
+// Material UI Components
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
 import MenuList from '@mui/material/MenuList';
@@ -14,7 +15,7 @@ import Cloud from '@mui/icons-material/Cloud';
 
 // Stylesheets
 import styles from '../../styles/Context.Module.css';
-import {useEffect, useState} from "react";
+
 
 const ContextMenu = props => {
     const {xPos, yPos, showMenu} = props;
@@ -38,7 +39,7 @@ const ContextMenu = props => {
         <div className={styles.contextContainer}>
             <Paper sx={{ width: 300, maxWidth: '20%', position: 'fixed', transform: `translate3d(${xPos}, ${yPos}, 0)`}}>
                 <MenuList>
-                    <MenuItem>
+                    <MenuItem onClick={clickCopyHandler}>
                         <ListItemIcon>
                             <ContentCut fontSize="small" />
                         </ListItemIcon>

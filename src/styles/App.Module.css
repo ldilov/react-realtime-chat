@@ -79,3 +79,9 @@ body{
     background: linear-gradient(135deg, rgba(90, 146, 106, 1) 50%,rgba(90, 146, 106, 0) 50.1%);
     transform: rotate(90deg);
 }
+
+.nav-icon {
+    position: fixed;
+    bottom:0;
+    right:0;
+}

@@ -3,6 +3,10 @@ import ChatBox from "./UI/ChatBox";
 import SideBar from "./UI/SideBar";
 import styles from '../styles/App.Module.css';
 import ContextMenu from "./UI/ContextMenu";
+import Navigation from "./UI/Navigation";
+import Fab from '@mui/material/Fab';
+import FormatAlignJustifyIcon from '@mui/icons-material/FormatAlignJustify';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 
 const App = props => {
     const [context, setContext] = useState({
@@ -11,12 +15,22 @@ const App = props => {
         showMenu: false,
     });
 
+    const [isOpen, setIsOpen] = useState(false);
+
+    const IconDrawer = () => !isOpen
+        ? <FormatAlignJustifyIcon />
+        : <HighlightOffIcon />
+
     const handleClick = () => {
         setContext({
             ...context,
             showMenu: false
         });
     }
+
+    const handleClickDrawer = () => {
+        setIsOpen(!isOpen);
+    };
 
     const handleContextMenu = (e) => {
         e.preventDefault();
@@ -33,13 +47,14 @@ const App = props => {
         let ctxMenu = document.addEventListener("contextmenu", handleContextMenu);
 
         return () => {
-            document.removeEventListener(ctxMenu);
+            document.removeEventListener("contextmenu", ctxMenu);
         }
     }, []);
 
 
     return (
         <>
+            <Navigation isOpen={isOpen} onClick={handleClickDrawer}/>
             <ContextMenu {...context} />
             <div className={styles.container}>
                 <div className={styles.sideBar}>
@@ -53,8 +68,19 @@ const App = props => {
                     <ChatBox />
                 </div>
             </div>
+            <Fab color="primary" aria-label="add" sx={customStyles.navIcon} onClick={handleClickDrawer}>
+               <IconDrawer />
+            </Fab>
         </>
     );
 }
+
+const customStyles = {
+  navIcon: {
+      position: 'fixed',
+      right: 1,
+      bottom: 1
+  }
+};
 
 export default App;
