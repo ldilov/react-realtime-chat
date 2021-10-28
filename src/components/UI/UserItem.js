@@ -45,7 +45,7 @@ const UserItem = props => {
     }
 
     return (
-        <li key={props.id} className={`${styles.sideLi} ${isSelected ? styles['is-active'] : null}`} onClick={props.onClick}>
+        <li key={props.id} className={`${styles.sideLi} ${isSelected ? styles['is-active'] : null}`} onClick={() => props.onClick(props.id)}>
             <Avatar {...stringAvatar(name)} className={styles.img} />
             <div className={styles.sideDiv}>
                 <h2 className={styles.h2}>{props.title}</h2>
@@ -58,4 +58,11 @@ const UserItem = props => {
     );
 }
 
-export default UserItem;
+export default React.memo(
+    UserItem,
+    (prevProps, nextProps) => {
+        return prevProps.id === nextProps.id
+            && prevProps.isSelected === nextProps.isSelected
+            && prevProps.onClick === nextProps.onClick;
+    }
+);

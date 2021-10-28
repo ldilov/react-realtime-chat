@@ -1,4 +1,4 @@
-import React, {useEffect, useLayoutEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {connect, useSelector} from "react-redux";
 
 // Stylesheets
@@ -49,8 +49,8 @@ const ChatBox = props => {
         });
     }, [getMessages, messages.length, selectedMessages.length]);
 
-    useLayoutEffect(() => {
-        messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+    useEffect(() => {
+        messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
     });
 
     const messagesList = selectedMessages.length > 0
@@ -71,13 +71,13 @@ const ChatBox = props => {
 
     return (
         <div className={styles.chatContainer}>
-            <div className={styles.chat}>
+            <div className={styles.chat} ref={messagesEndRef}>
                 <Box ref={messageContainer}>
                     <ul>
                         {userMessages}
                     </ul>
                 </Box>
-                <div ref={messagesEndRef} />
+                <div  />
             </div>
             <InputForm />
         </div>

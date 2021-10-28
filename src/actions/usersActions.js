@@ -1,5 +1,7 @@
 import {getUsersFromDb} from "../services/firebase";
 
+const FETCH_THROTTLE = 400;
+
 const updateUsers = (users) => {
     return (dispatch) => {
         dispatch({
@@ -33,13 +35,24 @@ const deselectUsers = (users, uid) => {
 
 const fetchUsers = () => {
     return async (dispatch) => {
+        dispatch({
+            type: 'FETCH_IN_PROGRESS',
+            payload: null
+        });
+
+        await new Promise((resolve) => {
+            setTimeout(() => {
+                resolve();
+            }, FETCH_THROTTLE)
+        })
+
         const usersSnapshot = await getUsersFromDb();
         const users = usersSnapshot.val();
 
         dispatch({
-            type: 'FETCH_USERS',
+            type: 'FETCH_FINISHED',
             payload: users
-        })
+        });
     }
 }
 

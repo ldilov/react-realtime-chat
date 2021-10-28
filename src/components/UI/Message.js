@@ -39,4 +39,11 @@ const Message = props => {
     );
 };
 
-export default React.memo(Message);
+export default React.memo(
+    Message,
+    (prevProps, nextProps) => {
+        return prevProps.msgId === nextProps.msgId
+            && prevProps.userId === nextProps.userId;
+    }
+);
+

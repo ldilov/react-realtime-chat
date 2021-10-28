@@ -1,7 +1,8 @@
 const users = {
     displayUsers: [],
     dbUsers: [],
-    selectedUsers: []
+    selectedUsers: [],
+    isFetchInProgress: false,
 }
 
 const normalizeUserObjects = (data) => {
@@ -17,30 +18,38 @@ const normalizeUserObjects = (data) => {
 
 const userReducer = (state = users, action) => {
     switch(action.type) {
+        case 'FETCH_IN_PROGRESS':
+            return {
+                ...state,
+                isFetchInProgress: true,
+            }
+        case 'FETCH_FINISHED':
+            return {
+                ...state,
+                dbUsers: normalizeUserObjects(action.payload),
+                isFetchInProgress: false,
+            }
         case 'UPDATE_USERS':
             return {
                 displayUsers: normalizeUserObjects(action.payload),
                 dbUsers: state.dbUsers,
-                selectedUsers: state.selectedUsers
+                selectedUsers: state.selectedUsers,
+                isFetchInProgress: false
             }
         case 'SELECT_USERS':
             return {
                 displayUsers: state.displayUsers,
                 dbUsers: state.dbUsers,
-                selectedUsers: [...action.payload.filter(u => u)]
+                selectedUsers: [...action.payload.filter(u => u)],
+                isFetchInProgress: false
             }
         case 'DESELECT_USERS':
             return {
                 displayUsers: state.displayUsers,
                 dbUsers: state.dbUsers,
-                selectedUsers: [...state.selectedUsers.filter(u => !action.payload.includes(u))]
+                selectedUsers: [...state.selectedUsers.filter(u => !action.payload.includes(u))],
+                isFetchInProgress: false
             }
-        case 'FETCH_USERS':
-            return {
-                dbUsers: normalizeUserObjects(action.payload),
-                displayUsers: state.displayUsers,
-                selectedUsers: state.selectedUsers
-            };
         default:
             return state;
     }
