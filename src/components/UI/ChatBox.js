@@ -21,7 +21,14 @@ import msgActions from "../../actions/messagesActions";
 const playNotification = async () => {
     const notificationSound = new Audio('/sounds/msg-sound.mp3');
     notificationSound.crossOrigin ='anonymous';
-    return notificationSound.play();
+
+    notificationSound.oncanplaythrough = async () => {
+        try {
+            await notificationSound.play();
+        } catch (e) {
+            console.log("Autoplay not allowed");
+        }
+    }
 }
 
 const ChatBox = props => {
@@ -44,7 +51,7 @@ const ChatBox = props => {
     useEffect(() => {
         setDbListener(refs.getMessagesRef(), (data) => {
             if(selectedMessages.length === 0){
-                getMessages(data, messages.length);
+                getMessages(data, true);
             }
         });
     }, [getMessages, messages.length, selectedMessages.length]);
@@ -77,7 +84,6 @@ const ChatBox = props => {
                         {userMessages}
                     </ul>
                 </Box>
-                <div  />
             </div>
             <InputForm />
         </div>

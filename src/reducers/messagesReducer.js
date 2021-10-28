@@ -5,19 +5,23 @@ const messagesState = {
 
 const messagesReducer = (state = messagesState, action) => {
     switch(action.type) {
-        case 'FETCH_MESSAGES':
-            return {
-                messages: Object.entries(action.payload).map(
-                    msg => {
-                        let payload = msg[1];
-                        return {
-                            id: msg[0],
-                            ...payload
-                        }
+        case 'FETCH_MESSAGES': {
+            let messagesPayload = action.payload;
+            let result = Object.entries(messagesPayload).map(
+                msg => {
+                    let payload = msg[1];
+                    return {
+                        id: msg[0],
+                        ...payload
                     }
-                ),
+                }
+            );
+
+            return {
+                messages: result,
                 selectedMessages: state.selectedMessages
             }
+        }
         case 'SELECT_MESSAGES':
             return {
                 selectedMessages: [...action.payload],

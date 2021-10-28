@@ -40,15 +40,19 @@ const userReducer = (state = users, action) => {
             return {
                 displayUsers: state.displayUsers,
                 dbUsers: state.dbUsers,
-                selectedUsers: [...action.payload.filter(u => u)],
+                selectedUsers: action.payload.filter(u => u),
                 isFetchInProgress: false
             }
         case 'DESELECT_USERS':
             return {
-                displayUsers: state.displayUsers,
-                dbUsers: state.dbUsers,
-                selectedUsers: [...state.selectedUsers.filter(u => !action.payload.includes(u))],
-                isFetchInProgress: false
+                ...state,
+                selectedUsers: state.selectedUsers.filter(u => {
+                    for(let user of action.payload){
+                        if(user.userId === u.userId){
+                            return false;
+                        }
+                    }
+                }),
             }
         default:
             return state;

@@ -32,13 +32,13 @@ const deselectMessages = () => {
 };
 
 const sendMessage = (message) => {
-    return async () => {
+    return async (dispatch) => {
         try {
             await writeMessageToDb('dwqeqwr', message);
-            // dispatch({
-            //     type: 'SEND_MESSAGE',
-            //     payload: message
-            // });
+            dispatch({
+                type: 'SEND_MESSAGE',
+                payload: message
+            });
         } catch (err) {
             console.log(err)
         }

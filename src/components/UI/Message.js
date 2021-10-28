@@ -14,7 +14,7 @@ const Message = props => {
     const {userId, content} = props;
     const {styles} = useMessageStyles(userId);
 
-    const users = useSelector(store => store.users.displayUsers);
+    const users = useSelector(store => store.users.dbUsers);
 
     const currentMessageUser = users.find(u => u.id === userId);
 

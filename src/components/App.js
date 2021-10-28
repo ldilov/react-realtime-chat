@@ -30,13 +30,6 @@ const App = () => {
         ? <FormatAlignJustifyIcon />
         : <HighlightOffIcon />
 
-    const handleClick = () => {
-        setContext({
-            ...context,
-            showMenu: false
-        });
-    }
-
     const handleClickDrawer = () => {
         setIsOpen(!isOpen);
     };
@@ -52,13 +45,20 @@ const App = () => {
     }
 
     useEffect(() => {
+        const handleClick = () => {
+            setContext({
+                ...context,
+                showMenu: false
+            });
+        }
+
         document.addEventListener("click", handleClick)
         let ctxMenu = document.addEventListener("contextmenu", handleContextMenu);
 
         return () => {
             document.removeEventListener("contextmenu", ctxMenu);
         }
-    }, []);
+    }, [setContext]);
 
 
     return (

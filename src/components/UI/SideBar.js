@@ -31,24 +31,29 @@ const SideBar = props => {
     const messages = useSelector(store => store.messages.messages);
 
     const userItemCallback = useCallback((userId) => {
-        if(selectedUserIds.includes(userId)){
-            deselectUsers(users, userId);
-            deselectMessages();
-        } else {
-            selectMessages(messages, userId);
-            selectUsers(users, userId);
-        }
-    }, [selectedUsers, users, selectedUserIds])
+            if (selectedUserIds.includes(userId)) {
+                deselectUsers(users, userId);
+                deselectMessages();
+            } else {
+                selectMessages(messages, userId);
+                selectUsers(users, userId);
+            }
+        },
+        [
+            users, selectedUserIds, deselectMessages,
+            deselectUsers, selectMessages, selectUsers, messages
+        ]
+    );
 
     const userItems = users.map(user => {
-            if(isFetchInProgress){
-                return  (
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            if (isFetchInProgress) {
+                return (
+                    <Box key={user.id} sx={{display: 'flex', alignItems: 'center'}}>
                         <Skeleton variant="circular" sx={{transform: 'scale3d(1.1,1.1,1.1)', margin: 2}}>
-                            <Avatar />
+                            <Avatar/>
                         </Skeleton>
                         <Skeleton variant="rectangular" width="60%">
-                            <div style={{ paddingTop: '30%' }} />
+                            <div style={{paddingTop: '30%'}}/>
                         </Skeleton>
                     </Box>
                 )
@@ -75,7 +80,7 @@ const SideBar = props => {
 
     return (
         <div className={styles.aside}>
-            <SearchBar />
+            <SearchBar/>
             <ul className={styles.sideUl}>
                 {userItems}
             </ul>

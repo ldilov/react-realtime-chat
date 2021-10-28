@@ -28,7 +28,7 @@ const SearchBar = props => {
                 setInputDebounce(inputValue);
             })();
         }
-    }, [inputValue])
+    }, [inputValue, fetchUsers, isFetchingData])
 
     useEffect(() => {
         const userList = dbUsers.filter(u => u && u?.username.startsWith(inputValue));
