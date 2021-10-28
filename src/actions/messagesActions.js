@@ -34,13 +34,29 @@ const deselectMessages = () => {
 const sendMessage = (message) => {
     return async (dispatch) => {
         try {
-            await writeMessageToDb('dwqeqwr', message);
             dispatch({
-                type: 'SEND_MESSAGE',
+                type: 'SEND_MESSAGE_START',
+                payload: null
+            });
+
+            await new Promise((resolve) => {
+                return setTimeout(() => {
+                    resolve();
+                }, 300);
+            })
+            await writeMessageToDb('dwqeqwr', message);
+
+            dispatch({
+                type: 'SEND_MESSAGE_RECEIVE',
                 payload: message
             });
         } catch (err) {
             console.log(err)
+        } finally {
+            dispatch({
+                type: 'SEND_MESSAGE_FINISH',
+                payload: null
+            });
         }
     };
 };

@@ -18,10 +18,6 @@ import useFocus from "../../hooks/useFocus";
 
 const MIN_MESSAGE_LENGTH = 1;
 
-function timeout(delay) {
-    return new Promise( res => setTimeout(res, delay) );
-}
-
 const validateMessage = (value) => {
     const errors = [];
 
@@ -46,20 +42,18 @@ const handleSubmit = async (inputSetters, value) => {
     const parsedValue = parseMessage(value.trim());
 
     const errors = validateMessage(parsedValue);
-    await inputSetters.setIsLoading(true);
+
     await inputSetters.setIsInputEnabled(false);
     await inputSetters.setInputValue('');
 
     if(errors.length > 0){
         inputSetters.setErrors(errors)
     } else {
-        await timeout(300);
         await inputSetters.sendMessage(parsedValue);
         inputSetters.setErrors([]);
     }
 
     await inputSetters.setIsInputEnabled(true);
-    await inputSetters.setIsLoading(false);
     await inputSetters.setInputFocus();
 }
 
@@ -76,17 +70,16 @@ const handleKeyPress = async (inputSetters, value, event) => {
 
 const InputForm = props => {
     const {sendMessage, setInputValue} = props;
+
     const inputValue = useSelector(store => store.inputForm);
+    const isMessageSending = useSelector(store => store.messages.isSendingInProgress);
 
     const [inputFieldRef, setInputFocus] = useFocus()
-
-    const [isLoading, setIsLoading] = useState(false);
     const [isInputEnabled, setIsInputEnabled] = useState(true);
     const [errors, setErrors] = useState([]);
 
     const inputSetters = {
         setErrors,
-        setIsLoading,
         sendMessage,
         setInputValue,
         setIsInputEnabled,
@@ -112,7 +105,7 @@ const InputForm = props => {
                     sx={{...customStyles.LoadingButton}}
                     onClick={() => handleClick(inputSetters, inputValue)}
                     endIcon={<SendIcon/>}
-                    loading={isLoading}
+                    loading={isMessageSending}
                     loadingPosition="end"
                     variant="contained"
                 >

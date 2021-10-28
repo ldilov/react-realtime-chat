@@ -40,6 +40,7 @@ const ChatBox = props => {
 
     const messages = useSelector(store => store.messages.messages);
     const selectedMessages = useSelector(store => store.messages.selectedMessages);
+    const selectedUsers = useSelector(store => store.users.selectedUsers);
 
     useEffect(() => {
         if(prevMessagesCountRef.current < messages.length){
@@ -60,7 +61,7 @@ const ChatBox = props => {
         messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
     });
 
-    const messagesList = selectedMessages.length > 0
+    const messagesList = selectedUsers.length > 0
         ? selectedMessages
         : messages;
 
@@ -68,9 +69,9 @@ const ChatBox = props => {
         .filter(msg => msg !== undefined)
         .map(msg => {
             return (
-                <Slide key={msg.id} direction="up" in={true} container={messageContainer.current}>
+                <Slide key={btoa(msg.id)} direction="up" in={true} container={messageContainer.current}>
                     <Box>
-                        <Message msgId={msg.id} userId={msg.user_id} content={msg.content}/>
+                        <Message msgId={msg.id} userId={msg.user_id} content={msg.content} timestamp={msg.timestamp}/>
                     </Box>
                 </Slide>
             );

@@ -21,7 +21,6 @@ export const db = getDatabase(app);
 
 export const setDbListener = (database, callback) => {
     onValue(database, (snapshot) => {
-        console.log(database)
         const data = snapshot.val();
         callback(data);
     });

@@ -1,6 +1,7 @@
 const messagesState = {
   messages: [],
-  selectedMessages: []
+  selectedMessages: [],
+  isSendingInProgress: false
 };
 
 const messagesReducer = (state = messagesState, action) => {
@@ -18,24 +19,34 @@ const messagesReducer = (state = messagesState, action) => {
             );
 
             return {
+                ...state,
                 messages: result,
-                selectedMessages: state.selectedMessages
             }
         }
         case 'SELECT_MESSAGES':
             return {
+                ...state,
                 selectedMessages: [...action.payload],
-                messages: state.messages
             };
         case 'DESELECT_MESSAGES':
             return {
+                ...state,
                 selectedMessages: [],
-                messages: state.messages
             };
-        case 'SEND_MESSAGE':
+        case 'SEND_MESSAGE_START':
+            return {
+                ...state,
+                isSendingInProgress: true
+            };
+        case 'SEND_MESSAGE_RECEIVE':
             return {
                 ...state,
                 messages: [...state.messages, action.payload],
+            };
+        case 'SEND_MESSAGE_FINISH':
+            return {
+                ...state,
+                isSendingInProgress: false
             };
         default:
             return state;
