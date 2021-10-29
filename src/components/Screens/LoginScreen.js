@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useRef} from "react";
 import {connect, useSelector} from "react-redux";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 // Stylesheets
 import styles from '../../styles/LoginScreen.Module.css';
@@ -107,6 +107,7 @@ const LoginScreen = (props) => {
                         >
                             Submit
                         </LoadingButton>
+                        <Link to={location => ({ ...location, pathname: "/register" })} > Create Account </Link>
                     </form>
                 </div>
             </div>
