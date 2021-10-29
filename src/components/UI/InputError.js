@@ -8,6 +8,7 @@ import AlertTitle from "@mui/material/AlertTitle";
 import Alert from "@mui/material/Alert";
 import Popper from "@mui/material/Popper";
 import Box from "@mui/material/Box";
+import useCustomStyles from "../../hooks/useCustomStyles";
 
 // Constants
 const ERR_TIMEOUT_SECONDS = 4;
@@ -15,6 +16,7 @@ const ERR_TIMEOUT_SECONDS = 4;
 // Component
 const InputError = props => {
     const {errors, updateErrors, inputRef} = props;
+    const [customStyles] = useCustomStyles();
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -76,23 +78,5 @@ const InputError = props => {
         </Popper>
     );
 };
-
-const customStyles = {
-    arrow: {
-        position: "relative",
-        mt: "10px",
-        "&::before": {
-            backgroundColor: "#d32f2f",
-            content: '""',
-            display: "block",
-            position: "absolute",
-            width: '1rem',
-            height: '1rem',
-            top: -18,
-            transform: "rotate(45deg)",
-            left: "calc(50% - 6px)"
-        }
-    }
-}
 
 export default React.memo(InputError);

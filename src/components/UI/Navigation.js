@@ -1,5 +1,8 @@
 import React from "react";
 
+// Custom Hooks
+import useCustomStyles from "../../hooks/useCustomStyles";
+
 // Material UI Components
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -13,6 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 
 const Navigation = props => {
     const {isOpen, onClick} = props;
+    const [customStyles] = useCustomStyles();
 
     const list = (anchor) => (
         <Box
@@ -58,28 +62,6 @@ const Navigation = props => {
             {list('left')}
         </Drawer>
     );
-}
-
-const customStyles = {
-    listItemIcon: {
-        color:'white',
-        "&:hover":{
-            color: 'black'
-        }
-    },
-    listItem: {
-        "&:hover":{
-            backgroundColor: 'white',
-            color: 'black',
-            "& > .itemIcon":{
-                color: 'black !important',
-            },
-        },
-    },
-    drawer: {
-        backgroundColor: "#121212",
-        color: "white",
-    }
 }
 
 export default React.memo(Navigation);

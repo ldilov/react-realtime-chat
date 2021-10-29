@@ -1,5 +1,8 @@
+import useAuth from "./useAuth";
+
 const useMessageStyles = (uid) => {
-    const currentUserId = 'dwqeqwr';
+    const [authData] = useAuth();
+    const currentUserId = authData.user_id;
 
     let styles = null;
 

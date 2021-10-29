@@ -21,6 +21,8 @@ export const db = getDatabase(app);
 
 const auth = getAuth();
 
+export const dbAuth = auth;
+
 export const createUser = (username, firstName, lastName, email, password, callback) => {
     let user = null;
     createUserWithEmailAndPassword(auth, email, password)
@@ -65,12 +67,9 @@ export const setDbListener = (database, callback) => {
     });
 }
 
-export const getUserById = (id, callback) => {
+export const getUserById = (id) => {
     const userRef = ref(db, `users/${id}`);
-    onValue(userRef, (snapshot) => {
-        const data = snapshot.val();
-        callback(data);
-    });
+    return get(userRef);
 }
 
 export const getUsersFromDb = () => {

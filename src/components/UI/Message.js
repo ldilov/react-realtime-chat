@@ -12,7 +12,6 @@ const parseMessage = (content) => {
 };
 
 const parseDate = (timestamp) => {
-    console.log("call")
     const date = new Date(timestamp);
     let format = `H:mm:ss, dddd`;
 

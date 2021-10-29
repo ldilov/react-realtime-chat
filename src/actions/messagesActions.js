@@ -31,7 +31,7 @@ const deselectMessages = () => {
     };
 };
 
-const sendMessage = (message) => {
+const sendMessage = (message, userId) => {
     return async (dispatch) => {
         try {
             dispatch({
@@ -44,7 +44,7 @@ const sendMessage = (message) => {
                     resolve();
                 }, 300);
             })
-            await writeMessageToDb('dwqeqwr', message);
+            await writeMessageToDb(userId, message);
 
             dispatch({
                 type: 'SEND_MESSAGE_RECEIVE',

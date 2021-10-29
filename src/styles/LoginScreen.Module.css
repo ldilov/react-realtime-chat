@@ -231,3 +231,14 @@ html {
         height: 100vh;
     }
 }
+
+@media only screen and (min-height: 1081px){
+    .loginBox, .signupBox {
+        height: 50vh;
+    }
+
+    input {
+        padding: 30px 0;
+        font-size: 18px;
+    }
+}

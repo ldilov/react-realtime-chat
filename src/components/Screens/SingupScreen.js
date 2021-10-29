@@ -1,6 +1,9 @@
 import React, {useCallback, useRef} from "react";
 import {connect, useSelector} from "react-redux";
 
+// Custom hooks
+import useCustomStyles from "../../hooks/useCustomStyles";
+
 // Stylesheets
 import styles from '../../styles/LoginScreen.Module.css';
 
@@ -14,11 +17,11 @@ import SendIcon from "@mui/icons-material/Send";
 // Services
 import signupActions from '../../actions/signupActions';
 
-
 const SNACKBAR_TIMEOUT_SECONDS = 3;
 
 const SignupScreen = (props) => {
     const {createAccount, clearErrors, clearIsSuccess} = props;
+    const [customStyles] = useCustomStyles();
 
     const horizontal = "center";
     const vertical = "top";
@@ -104,26 +107,6 @@ const SignupScreen = (props) => {
             </div>
         </>
     );
-}
-
-const customStyles = {
-    LoadingButton: {
-        borderRadius: "10px",
-        backgroundColor: "inherit",
-        boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-        padding: "15px 26px",
-        fontSize: "16px",
-        "&:hover": {
-            background: "#03e9f4",
-            color: "#141e30",
-            borderRadius: "5px",
-            boxShadow: "0 0 5px #03e9f4, 0 0 15px #03e9f4, 0 0 2px #03e9f4, 0 0 1px #03e9f4",
-        },
-        "&:disabled": {
-            background: "#03e9f4",
-            color: "#141e30",
-        }
-    }
 }
 
 export default connect(null, {

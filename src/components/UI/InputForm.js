@@ -4,6 +4,10 @@ import {connect, useSelector} from "react-redux";
 // Stylesheets
 import styles from "../../styles/ChatBox.Module.css";
 
+// Custom Hooks
+import useFocus from "../../hooks/useFocus";
+import useCustomStyles from "../../hooks/useCustomStyles";
+
 // Material Components
 import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/Send";
@@ -14,7 +18,7 @@ import inputActions from "../../actions/inputActions";
 
 // Custom components
 import InputError from "./InputError";
-import useFocus from "../../hooks/useFocus";
+import useAuth from "../../hooks/useAuth";
 
 const MIN_MESSAGE_LENGTH = 1;
 
@@ -49,7 +53,7 @@ const handleSubmit = async (inputSetters, value) => {
     if(errors.length > 0){
         inputSetters.setErrors(errors)
     } else {
-        await inputSetters.sendMessage(parsedValue);
+        await inputSetters.sendMessage(parsedValue, inputSetters.authData.user_id);
         inputSetters.setErrors([]);
     }
 
@@ -70,6 +74,8 @@ const handleKeyPress = async (inputSetters, value, event) => {
 
 const InputForm = props => {
     const {sendMessage, setInputValue} = props;
+    const [customStyles] = useCustomStyles();
+    const [authData] = useAuth();
 
     const inputValue = useSelector(store => store.inputForm);
     const isMessageSending = useSelector(store => store.messages.isSendingInProgress);
@@ -83,7 +89,8 @@ const InputForm = props => {
         sendMessage,
         setInputValue,
         setIsInputEnabled,
-        setInputFocus
+        setInputFocus,
+        authData
     };
 
     return (
@@ -114,26 +121,6 @@ const InputForm = props => {
             </div>
         </div>
     );
-}
-
-const customStyles = {
-    LoadingButton: {
-        borderRadius: "10px",
-        backgroundColor: "inherit",
-        boxShadow: "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
-        padding: "9px 18px",
-        fontSize: "16px",
-        "&:hover": {
-            background: "#03e9f4",
-            color: "#141e30",
-            borderRadius: "5px",
-            boxShadow: "0 0 5px #03e9f4, 0 0 15px #03e9f4, 0 0 2px #03e9f4, 0 0 1px #03e9f4",
-        },
-        "&:disabled": {
-            background: "#03e9f4",
-            color: "#141e30",
-        }
-    }
 }
 
 export default connect(
