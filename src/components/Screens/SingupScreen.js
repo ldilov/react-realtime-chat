@@ -1,4 +1,4 @@
-import React, {useCallback, useRef} from "react";
+import React, {useCallback, useEffect, useRef} from "react";
 import {connect, useSelector} from "react-redux";
 
 // Custom hooks
@@ -37,6 +37,14 @@ const SignupScreen = (props) => {
     const errors = useSelector(store => store.signupForm.errors);
     const isSuccess = useSelector(store => store.signupForm.isSuccess);
     const isLoading = useSelector(store => store.signupForm.isSignUpInProgress);
+
+    useEffect(() => {
+      if(isSuccess){
+          setTimeout(() => {
+              window.location.href = "/login";
+          }, 2000);
+      }
+    });
 
     const formRef = useRef();
 
