@@ -1,8 +1,13 @@
 import React from "react";
 
+// Services
+import {loginUser} from "../../services/firebase";
+
+// Stylesheets
 import styles from '../../styles/LoginScreen.Module.css';
 
 const LoginScreen = () => {
+
     return (
         <div className={styles.container}>
             <div className={styles.loginBox}>
@@ -16,7 +21,10 @@ const LoginScreen = () => {
                         <input type="password" name="" required=""/>
                         <label className={styles.label}>Password</label>
                     </div>
-                    <a href="#">
+                    <a href="#" onClick={() => {
+                        //createUser("asdasd", "asd", "dqw", "q2as2353sddggfa@abv.bg", "raptor");
+                        loginUser("q2as2353sddggfa@abv.bg", "raptor")
+                    }}>
                         <span></span>
                         <span></span>
                         <span></span>

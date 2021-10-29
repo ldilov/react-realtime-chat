@@ -1,11 +1,11 @@
 import React from "react";
 
 // import HomeScreen from "./Screens/HomeScreen";
-import LoginScreen from "./Screens/LoginScreen";
+import SignupScreen from "./Screens/SingupScreen";
 
 const App = () => {
     return (
-        <LoginScreen />
+        <SignupScreen />
     );
 }
 

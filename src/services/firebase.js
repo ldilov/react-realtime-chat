@@ -1,5 +1,6 @@
 import {initializeApp} from 'firebase/app';
 import {getDatabase, onValue, ref, set, push, query, get, startAfter, orderByChild} from 'firebase/database';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
 const LAST_24_HOURS_TIMESTAMP = new Date(new Date().getTime() - (24 * 60 * 60 * 1000)).getTime();
 
@@ -16,8 +17,46 @@ const config = {
 
 const app = initializeApp(config);
 
-export const auth = app.auth;
 export const db = getDatabase(app);
+
+const auth = getAuth();
+
+export const createUser = (username, firstName, lastName, email, password, callback) => {
+    let user = null;
+    createUserWithEmailAndPassword(auth, email, password)
+        .then(async (userCredential) => {
+            user = userCredential.user;
+            try {
+                await set(ref(db, `users/${user.uid}`), {
+                    user_id: user.uid,
+                    created_at: user.metadata.createdAt,
+                    last_login_at: user.metadata.lastLoginAt,
+                    firstName: firstName,
+                    lastName: lastName,
+                    username: username,
+                    isOnline: false
+                });
+                callback(true);
+            } catch(err) {
+                callback(null, err);
+            }
+        })
+        .catch((error) => {
+            callback(null, error.code);
+        });
+};
+
+export const loginUser = (email, password, callback) => {
+    signInWithEmailAndPassword(auth, email, password)
+        .then(async (userCredential) => {
+            const user = userCredential.user;
+            const result = await get(ref(db, `users/${user.uid}`));
+            callback(result.val(), null)
+        })
+        .catch((err) => {
+            callback(null, err);
+        });
+}
 
 export const setDbListener = (database, callback) => {
     onValue(database, (snapshot) => {

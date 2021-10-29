@@ -11,6 +11,10 @@ const updateUsers = (users) => {
     };
 };
 
+const createUser = (formData) => {
+
+}
+
 const selectUsers = (users, uid) => {
     const selectedUsers = users.filter(u => u && u.id === uid)
 

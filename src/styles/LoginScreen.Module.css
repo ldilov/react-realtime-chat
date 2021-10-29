@@ -1,4 +1,8 @@
-.loginBox {
+.loginBox, .signupBox {
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     position: relative;
     width: 25%;
     height: 40%;
@@ -9,11 +13,20 @@
     border-radius: 10px;
 }
 
+.signupBox {
+    height: 70%;
+    min-height: 70vh;
+}
+
 form {
     display: flex;
+    min-height: 90%;
+    max-height: 99%;
+    min-width: 100%;
     flex-direction: column;
-    justify-content: center;
+    justify-content: stretch;
     align-items: center;
+    flex-wrap: nowrap;
 }
 
 .loginH2 {
@@ -26,8 +39,8 @@ form {
 .userBox {
     position: relative;
     flex: 1;
-    align-self: stretch;
-    margin: 10px;
+    min-width: 100%;
+
 }
 
 input {
@@ -53,7 +66,10 @@ input {
     transition: .5s;
 }
 
-.loginBox .userBox input:focus ~ .label
+.loginBox .userBox input:focus ~ .label,
+.signupBox .userBox input:focus ~ .label,
+.loginBox .userBox input:valid ~ .label,
+.signupBox .userBox input:valid ~ .label
 {
     top: -20px;
     left: 0;
@@ -64,14 +80,13 @@ input {
 form a {
     position: relative;
     display: inline-block;
-    padding: 10px 20px;
+    padding: 15px 20px;
     color: #03e9f4;
     font-size: 16px;
     text-decoration: none;
     text-transform: uppercase;
     overflow: hidden;
     transition: .5s;
-    margin-top: 40px;
     letter-spacing: 4px;
 }
 
@@ -188,20 +203,31 @@ html {
 }
 
 @media only screen and (max-width: 1280px){
-    .loginBox {
+    .loginBox, .signupBox {
         width: 40vw;
     }
 }
 
 @media only screen and (max-width: 768px){
-    .loginBox {
+    .loginBox, .signupBox {
         width: 60vw;
     }
 }
 
 @media only screen and (max-width: 500px){
-    .loginBox {
+    .loginBox, .signupBox {
         width: 90vw;
     }
 }
 
+@media only screen and (max-height: 790px){
+    .loginBox, .signupBox {
+        height: 90vh;
+    }
+}
+
+@media only screen and (max-height: 620px){
+    .loginBox, .signupBox {
+        height: 100vh;
+    }
+}
