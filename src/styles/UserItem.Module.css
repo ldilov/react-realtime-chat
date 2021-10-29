@@ -59,6 +59,8 @@
     display:inline-block;
     vertical-align:top;
     margin-top:12px;
+    max-width: 30%;
+    overflow: clip;
 }
 
 .h2,.h3{
