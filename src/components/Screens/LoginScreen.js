@@ -33,10 +33,10 @@ const LoginScreen = (props) => {
     const isLoading = useSelector(store => store.loginForm.isSingInInProgress);
 
     const isLoggedIn = authData
-        && errors.length === 0
-        && isSuccess;
+        && errors.length === 0;
 
     useEffect(() => {
+        console.log(isLoggedIn);
         (async () => {
             if(isLoggedIn){
                 await new Promise((resolve) => {
