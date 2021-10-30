@@ -6,22 +6,30 @@ function useLocalStorage(key, initialValue) {
             const item = window.localStorage.getItem(key);
             return item ? JSON.parse(item) : initialValue;
         } catch (error) {
-            console.log(error);
             return initialValue;
         }
     });
 
     const setValue = (value) => {
-        console.log(value)
         try {
             const valueToStore = value instanceof Function ? value(storedValue) : value;
             setStoredValue(valueToStore);
             window.localStorage.setItem(key, JSON.stringify(valueToStore));
         } catch (error) {
-            console.log(error);
+            console.log("Error settings local storage value!")
         }
     };
-    return [storedValue, setValue];
+
+    const unsetValue = () => {
+        try {
+            setStoredValue(null);
+            window.localStorage.removeItem(key);
+        } catch (err) {
+            console.log("Error deleting from local storage!");
+        }
+    }
+
+    return [storedValue, setValue, unsetValue];
 }
 
 export default useLocalStorage;

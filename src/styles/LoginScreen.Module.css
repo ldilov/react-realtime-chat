@@ -55,6 +55,15 @@ input {
     background: transparent;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px #0E1621 inset !important;
+    -webkit-text-fill-color: white !important;
+    margin: 15px 0;
+    padding: 15px 0;
+}
+
 .label {
     position: absolute;
     top:0;
@@ -171,8 +180,11 @@ html {
 }
 
 @media only screen and (max-height: 790px){
-    .loginBox, .signupBox {
+    .signupBox {
         height: 90vh;
+    }
+    .loginBox{
+        height: 70vh;
     }
 }
 

@@ -1,6 +1,7 @@
 const loginState = {
     isSingInInProgress: false,
     errors: [],
+    successes: [],
     isSuccess: false
 }
 
@@ -9,19 +10,25 @@ const signupReducer = (state = loginState, action) => {
         case 'SIGNIN_START':
             return {
                 ...state,
-                isSignUpInProgress: true,
+                isSingInInProgress: true,
             }
         case 'SIGNIN_FINISH':
             return {
                 ...state,
-                isSignUpInProgress: false,
+                isSingInInProgress: false,
                 errors: action.payload.errors,
+                successes: action.payload.successes,
                 isSuccess: action.payload.isSuccess
             }
         case 'SIGNIN_SET_ERRORS':
             return {
                 ...state,
                 errors: action.payload
+            }
+        case 'SIGNIN_SET_SUCCESSES':
+            return {
+                ...state,
+                successes: action.payload
             }
         case 'SIGNIN_SET_IS_SUCCESS':
             return {

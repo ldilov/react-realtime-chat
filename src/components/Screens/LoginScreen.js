@@ -22,16 +22,31 @@ import CircularProgress from '@mui/material/CircularProgress';
 import loginActions from "../../actions/loginActions";
 
 const LoginScreen = (props) => {
-    const {userLogin, clearErrors, clearIsSuccess} = props;
+    const {userLogin, clearErrors, clearSuccesses} = props;
     const [customStyles] = useCustomStyles();
     const [authData] = useAuth();
     const formRef = useRef();
 
-    useEffect(() => {
-        if(authData){
+    const errors = useSelector(store => store.loginForm.errors);
+    const successes = useSelector(store => store.loginForm.successes);
+    const isSuccess = useSelector(store => store.loginForm.isSuccess);
+    const isLoading = useSelector(store => store.loginForm.isSingInInProgress);
+
+    const isLoggedIn = authData
+        && errors.length === 0
+        && isSuccess;
+
+    useEffect(async () => {
+        if(isLoggedIn){
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve();
+                }, 5000);
+            });
+
             window.location.href='/';
         }
-    }, [authData, props.history])
+    }, [authData, props.history, errors, isSuccess])
 
     const horizontal = "center";
     const vertical = "top";
@@ -41,14 +56,10 @@ const LoginScreen = (props) => {
     }, []);
 
     const closeSuccessCallback = useCallback(() => {
-        clearIsSuccess();
+        clearSuccesses();
     }, []);
 
-    const errors = useSelector(store => store.loginForm.errors);
-    const isSuccess = useSelector(store => store.loginForm.isSuccess);
-    const isLoading = useSelector(store => store.loginForm.isSignInInProgress);
-
-    if(authData) {
+    if(isLoggedIn && successes.length === 0) {
         return (
             <Backdrop
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
@@ -76,7 +87,7 @@ const LoginScreen = (props) => {
             <Snackbar
                 autoHideDuration={2 * 1000}
                 anchorOrigin={{vertical, horizontal}}
-                open={errors.length === 0 && isSuccess}
+                open={successes.length > 0}
                 onClose={closeSuccessCallback}
                 key={vertical + horizontal + "isSuccess"}
             >
@@ -119,6 +130,7 @@ export default connect(null,
     {
         userLogin: loginActions.loginUserAccount,
         clearErrors: () => loginActions.setErrors([]),
-        clearIsSuccess: () => loginActions.setIsSuccess(false)
+        clearIsSuccess: () => loginActions.setIsSuccess(false),
+        clearSuccesses: () => loginActions.setSuccesses([])
     }
 )(withRouter(LoginScreen));

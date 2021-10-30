@@ -52,8 +52,16 @@ const setIsSuccess = (val) => {
     }
 }
 
+const setSuccesses = (val) => {
+    return (dispatch) => {
+        dispatch({
+            type: 'SIGNIN_SET_SUCCESSES',
+            payload: val
+        });
+    }
+}
+
 const loginUserAccount= (formData) => {
-    console.log("loginuseracc")
     const form = formData.current;
     return async (dispatch) => {
         dispatch({
@@ -62,11 +70,17 @@ const loginUserAccount= (formData) => {
         });
 
         const dispatchResult = (isSuccess, validationErrors, firebaseErrors) => {
-            console.log("dispatchuser")
+            const successMessages = [];
+
+            if(isSuccess){
+                successMessages.push("You logged in successfully! You will be redirected!");
+            }
+
             dispatch({
                 type: 'SIGNIN_FINISH',
                 payload: {
                     isSuccess: isSuccess,
+                    successes: successMessages,
                     errors: validationErrors.length > 0 ? validationErrors : firebaseErrors
                 }
             });
@@ -88,7 +102,8 @@ const loginUserAccount= (formData) => {
 const moduleData = {
     loginUserAccount,
     setErrors,
-    setIsSuccess
+    setIsSuccess,
+    setSuccesses
 };
 
 export default moduleData;
