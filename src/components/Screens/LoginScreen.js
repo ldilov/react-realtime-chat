@@ -36,28 +36,30 @@ const LoginScreen = (props) => {
         && errors.length === 0
         && isSuccess;
 
-    useEffect(async () => {
-        if(isLoggedIn){
-            await new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve();
-                }, 5000);
-            });
+    useEffect(() => {
+        (async () => {
+            if(isLoggedIn){
+                await new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve();
+                    }, 5000);
+                });
 
-            window.location.href='/';
-        }
-    }, [authData, props.history, errors, isSuccess])
+                window.location.href='/';
+            }
+        })();
+    }, [authData, props.history, errors, isSuccess, isLoggedIn])
 
     const horizontal = "center";
     const vertical = "top";
 
     const closeErrorsCallback = useCallback(() => {
         clearErrors();
-    }, []);
+    }, [clearErrors]);
 
     const closeSuccessCallback = useCallback(() => {
         clearSuccesses();
-    }, []);
+    }, [clearSuccesses]);
 
     if(isLoggedIn && successes.length === 0) {
         return (

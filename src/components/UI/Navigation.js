@@ -1,22 +1,29 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {withRouter} from "react-router-dom";
 
 // Custom Hooks
 import useCustomStyles from "../../hooks/useCustomStyles";
+import useAuth from "../../hooks/useAuth";
 
 // Material UI Components
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const Navigation = props => {
     const {isOpen, onClick} = props;
     const [customStyles] = useCustomStyles();
+    const [authData, destroyAuthData] = useAuth();
+
+    useEffect(() => {
+        if(!authData){
+            props.history.push('/login');
+        }
+    }, [authData, props.history])
 
     const list = (anchor) => (
         <Box
@@ -26,25 +33,16 @@ const Navigation = props => {
             onKeyDown={() => {}}
         >
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text} sx={customStyles.listItem}>
-                        <ListItemIcon sx={customStyles.listItemIcon} className="itemIcon">
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+                <ListItem
+                    button key="Sign Out"
+                    sx={customStyles.listItem}
+                    onClick={() => destroyAuthData()}
+                >
+                    <ListItemIcon sx={customStyles.listItemIcon} className="itemIcon">
+                        <ExitToAppIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign Out" />
+                </ListItem>
             </List>
         </Box>
     );
@@ -64,4 +62,4 @@ const Navigation = props => {
     );
 }
 
-export default React.memo(Navigation);
+export default React.memo(withRouter(Navigation));

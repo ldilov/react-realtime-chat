@@ -1,6 +1,6 @@
 import {initializeApp} from 'firebase/app';
 import {getDatabase, onValue, ref, set, push, query, get, startAfter, orderByChild} from 'firebase/database';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
 const LAST_24_HOURS_TIMESTAMP = new Date(new Date().getTime() - (24 * 60 * 60 * 1000)).getTime();
 
@@ -57,6 +57,16 @@ export const loginUser = (email, password, callback) => {
         })
         .catch((err) => {
             callback(null, err);
+        });
+}
+
+export const signOutUser = () => {
+    signOut(auth)
+        .then(() => {
+            console.log("Logged out successfully!");
+        })
+        .catch(() => {
+            console.error("Error during signing out!")
         });
 }
 

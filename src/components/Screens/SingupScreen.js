@@ -28,11 +28,11 @@ const SignupScreen = (props) => {
 
     const closeErrorsCallback = useCallback(() => {
         clearErrors();
-    }, []);
+    }, [clearErrors]);
 
     const closeSuccessCallback = useCallback(() => {
         clearIsSuccess();
-    }, []);
+    }, [clearIsSuccess]);
 
     const errors = useSelector(store => store.signupForm.errors);
     const isSuccess = useSelector(store => store.signupForm.isSuccess);
